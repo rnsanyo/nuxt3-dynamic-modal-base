@@ -1,27 +1,34 @@
 <template>
-  <div>
-    <!-- isOpen is reactive and taken from the store, define if it is rendered or not -->
-    <div v-if="isOpen" class="modal modal-open">
-      <div class="modal-box relative">
-        
-        <!-- @click handles the event to close the modal calling the action directly in store -->
-        <label class="btn btn-sm btn-circle absolute right-2 top-2" @click="modal.close()">
-          ✕
-        </label>
+  <dialog id="base_modal" class="modal">
+    <div class="modal-box">
+      <!-- Component v-model configuration goes in each component code. The buttons inside this component won't close the dialog. -->
+      <component :is="view" v-model="model"></component> 
+      
+      <!-- if there is a button inside the dialog form, it will close the modal -->
+      <form method="dialog">
 
-        <!-- dynamic components, using model to share values payload -->
-        <component :is="view" v-model="model"></component>
+        <!-- Closing upper button. It's absolute relative to the modal-box-->
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
 
+        <!-- Action Buttons section -->
         <div class="modal-action">
-          <!-- render all actions and pass the model payload as parameter -->
-          <button v-for="action in actions" :key="action.label" class="btn" @click="action.callback(model)">
+          <!-- The v-for directive doesn't let the dialog close automatically. So, adding "onclick"-->
+          <button v-for="action in actions" :key="action.label" class="btn" :class="action.buttonClass" @click="action.callback(model)" onclick="base_modal.close()">
             {{ action.label }}
           </button>
+
         </div>
 
-      </div>
+      </form>
+
     </div>
-  </div>
+
+    <!-- This is for closing when clicked outside -->
+    <form method="dialog" class="modal-backdrop">
+      <button class="cursor-auto">close</button>
+    </form>
+
+  </dialog>
 </template>
 
 <script lang="ts" setup>
@@ -31,9 +38,10 @@
 
   const modal = useModal();
 
+  // convert all state properties to reactive references to be used on view
+  const { isOpen, view, actions } = storeToRefs(modal);
+
   // reactive container to save the payload returned by the mounted view
   const model = reactive({});
 
-  // convert all state properties to reactive references to be used on view
-  const { isOpen, view, actions } = storeToRefs(modal);
 </script>

@@ -7,7 +7,7 @@
         <div class="join">
           <button class="btn join-item">Button</button>
           <button class="btn join-item">Button</button>
-          <button class="btn join-item" @click="handleOnClickOpenModal">Open</button>
+          <button class="btn join-item" @click="handleOnClickOpenModal" onclick="base_modal.showModal()">Open</button>
         </div>
       </div>
     </div>
@@ -16,18 +16,26 @@
 
 <script lang="ts" setup>
 import { useModal } from "../stores/modal";
-import ViewToRender from '../components/ViewToRender.vue'
+import CounterModal from "../components/CounterModal.vue";
 
   const modal = useModal();
   function handleOnClickOpenModal() {
     modal.open(
-      ViewToRender,
+      CounterModal,
       [
         {
           label: "Save",
+          buttonClass: "btn-primary",
           callback: (dataFromView) => {
             console.log(dataFromView);
-            modal.close();
+            modal.close(); // This store function only resets the modal store properties.
+          },
+        },
+        {
+          label: "Close",
+          buttonClass: "btn-neutral",
+          callback: () => {
+            modal.close(); // This store function only resets the modal store properties.
           },
         },
       ]

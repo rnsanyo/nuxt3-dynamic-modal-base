@@ -8,8 +8,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { watch } from "vue";
-
   // no need to import defineEmits
   const emit = defineEmits(["update:modelValue"]);
 

@@ -1,22 +1,22 @@
 import { useModal, Modal, ModalAction } from "../stores/modal";
-import CounterModal from "../components/CounterModal.vue";
-import SignupModal from "../components/SignupModal.vue"
-import LoginModal from "../components/LoginModal.vue"
+import Counter from "../components/Modal/Counter.vue";
+import Signup from "../components/Modal/Signup.vue";
+import Login from "../components/Modal/Login.vue";
 
 export enum Components {
-  CounterModal = 'CounterModal',
-  SignupModal = 'SignupModal',
-  LoginModal = 'LoginModal'
+  Counter = 'Counter',
+  Signup = 'Signup',
+  Login = 'Login'
 }
 
 function getComponentData(component: Components): any  {
   switch (component) {
-    case Components.CounterModal:
-      return CounterModal;
-    case Components.SignupModal:
-      return SignupModal;
-    case Components.LoginModal:
-      return LoginModal;
+    case Components.Counter:
+      return Counter;
+    case Components.Signup:
+      return Signup;
+    case Components.Login:
+      return Login;
   }
 }
 
@@ -24,7 +24,7 @@ export default function openModal(passingComponent: Components): void {
   const modal = useModal();
 
   const modalActions: Record<Components, ModalAction[]> = {
-    'CounterModal': [
+    'Counter': [
       {
         label: "Log the count!",
         buttonClass: "btn-primary",
@@ -41,7 +41,7 @@ export default function openModal(passingComponent: Components): void {
         },
       },
     ],
-    'SignupModal': [
+    'Signup': [
       {
         label: "Sign me up!",
         buttonClass: "btn-primary",
@@ -58,7 +58,7 @@ export default function openModal(passingComponent: Components): void {
         },
       },
     ],
-    'LoginModal': [
+    'Login': [
       {
         label: "Log me in",
         buttonClass: "btn-primary",
@@ -76,6 +76,6 @@ export default function openModal(passingComponent: Components): void {
       },
     ]
   }
-  console.log(passingComponent);
+  
   modal.open(getComponentData(passingComponent), modalActions[passingComponent]);
 }

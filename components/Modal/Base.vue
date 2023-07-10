@@ -34,7 +34,7 @@
 <script lang="ts" setup>
   import { reactive } from "vue";
   import { storeToRefs } from "pinia";
-  import { useModal } from "../stores/modal";
+  import { useModal } from "../../stores/modal";
 
   const modal = useModal();
 

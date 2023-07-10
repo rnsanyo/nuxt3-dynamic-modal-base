@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseModal/>
+    <ModalBase/>
     <NuxtPage />
   </div>
 </template>

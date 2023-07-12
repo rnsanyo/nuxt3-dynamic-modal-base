@@ -12,11 +12,9 @@
 
         <!-- Action Buttons section -->
         <div class="modal-action">
-          <!-- The v-for directive doesn't let the dialog close automatically. So, adding "onclick"-->
           <button v-for="action in actions" :key="action.label" class="btn" :class="action.buttonClass" @click="action.callback(model)">
             {{ action.label }}
           </button>
-
         </div>
 
       </form>
@@ -32,7 +30,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { reactive } from "vue";
   import { storeToRefs } from "pinia";
   import { useModal } from "../../stores/modal";
 

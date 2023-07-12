@@ -1,6 +1,6 @@
 <template>
   <div >
-    This is the count:
+    This is the count (click it):
     <button class="btn btn-xs btn-success" @click="() => count++">
       {{ count }}
     </button>
@@ -8,9 +8,9 @@
 </template>
 
 <script lang="ts" setup>
-  // no need to import defineEmits
-  const emit = defineEmits(["update:modelValue"]);
 
+// Here, idk why but looks like inheritance is deactivated automatically
+  const emit = defineEmits(["update:modelValue"]);
   const count = ref(0)
 
   // when count changes, it will update the reference passed via v-model

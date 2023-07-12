@@ -15,7 +15,7 @@ export type ModalAction = {
 export const useModal = defineStore("modal", {
   state: (): Modal => ({
     isOpen: false,
-    view: {},
+    view: shallowRef({}),
     actions: [],
   }),
 
